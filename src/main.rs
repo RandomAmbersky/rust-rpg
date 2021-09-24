@@ -2,6 +2,7 @@ use ggez::{conf, event, Context, GameResult};
 use std::fs::File;
 use std::io::Read;
 use std::path::Path;
+use fontdue::{Font, FontResult};
 
 // This struct will hold all our game state
 // For now there is nothing to be held, but we'll add
@@ -48,14 +49,22 @@ fn load_file (path: &str) -> Vec<u8> {
     buffer
 }
 
-fn ttf_font (buffer: Vec<u8>) {
-
+fn ttf_font (buffer: Vec<u8>) -> Font {
+    let font = Font::from_bytes(buffer, fontdue::FontSettings::default());
+    match font {
+        Ok(font) => {font}
+        Err(why) => {
+            panic!("ttf_font error: {}", why)
+        }
+    }
 }
 
 // pub fn main() -> GameResult {
 pub fn main() {
     let buffer = load_file("./resources/LiberationMono-Regular.ttf");
-     ttf_font(buffer);
+    let font = ttf_font(buffer);
+    println!("glyph_count {}", font.glyph_count());
+    println!("scale_factor {}", font.scale_factor(8.0));
     /*
     // Create a game context and event loop
     let context_builder = ggez::ContextBuilder::new("rust_sokoban", "sokoban")

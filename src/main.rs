@@ -61,7 +61,7 @@ fn ttf_font (buffer: Vec<u8>) -> Font {
 
 // pub fn main() -> GameResult {
 pub fn main() {
-    let buffer = load_file("./resources/LiberationMono-Regular.ttf");
+    let buffer = load_file("./resources/fonts/LiberationMono-Regular.ttf");
     let font = ttf_font(buffer);
     println!("glyph_count {}", font.glyph_count());
     println!("scale_factor {}", font.scale_factor(8.0));
